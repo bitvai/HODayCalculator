@@ -22,7 +22,7 @@
   </div>
 
 
-<EventConsole @ref=@console class="mt-4" />
+<!--EventConsole @ref=@console class="mt-4" /-->
 
 @code {
 
@@ -47,7 +47,7 @@
   int holidayDays = 0;
   string hoVisible = "invisible";
 
-  EventConsole console;
+  EventConsole? console;
 
   protected override void OnInitialized()
   {
@@ -82,7 +82,7 @@
       hoVisible = GetVisible(false);
       holidayDays = 0;
       possibleHomeofficeDays = 0;
-      console.Log($"{name} value changed to {value}");
+      console?.Log($"{name} value changed to {value}");
   }
 
 
@@ -90,7 +90,7 @@
   {
       holidayDays = value;
       hoVisible = GetVisible(false);
-      console.Log($"{name} value changed to {value}");
+      console?.Log($"{name} value changed to {value}");
   }
 
   void OnClick(string value)

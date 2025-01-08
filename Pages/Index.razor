@@ -12,12 +12,12 @@
             <RadzenDropDown  align="left" AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value=@selectedMonth Placeholder="Hónap" Data=@(workingDays.Select(c => c.MonthName)) Change=@(args => OnMonthChange((string)args, "Month selected"))>
 
             </RadzenDropDown>
-            <h4 class="m3-4 mt-2" align="left">Munkanapok száma:@workingDaysInMonth</h4>
+            <h4 class="m3-4 mt-2" align="left">Munkanapok:@workingDaysInMonth</h4>
             <h4 class="mb-3 mt-3" align="left">Szabadságos napok száma:</h4>
             <RadzenNumeric align="left" TValue="int" Value=@holidayDays Min="0" Max=@maxHolidays Change=@(args => OnHolidayChange((int)args, "Holidays")) class="w-100" />
             <RadzenButton class="mt-3" Click=@(args => OnClick("Success button ")) Text="Számolj" ButtonStyle="ButtonStyle.Success" />
-            <h4 class="mt-3 @hoVisible" align="left">Home office napok száma (max 12):@possibleHomeofficeDaysCat1</h4>
-			<h4 class="mt-2 @hoVisible" align="left">Home office napok száma (max 16):@possibleHomeofficeDaysCat2</h4>
+            <h4 class="mt-3 @hoVisible" align="left">Home office napok összesen (max 12):@possibleHomeofficeDaysCat1</h4>
+			<h4 class="mt-2 @hoVisible" align="left">Home office napok összesen (max 16):@possibleHomeofficeDaysCat2</h4>
         </RadzenCard>
     </div>
   </div>

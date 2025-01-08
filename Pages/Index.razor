@@ -16,7 +16,8 @@
             <h4 class="mb-3 mt-3" align="left">Szabadságos napok száma:</h4>
             <RadzenNumeric align="left" TValue="int" Value=@holidayDays Min="0" Max=@maxHolidays Change=@(args => OnHolidayChange((int)args, "Holidays")) class="w-100" />
             <RadzenButton class="mt-3" Click=@(args => OnClick("Success button ")) Text="Számolj" ButtonStyle="ButtonStyle.Success" />
-            <h4 class="mt-3 @hoVisible" align="left">Home office napok maximális száma:@possibleHomeofficeDays</h4>
+            <h4 class="mt-3 @hoVisible" align="left">Home office napok maximális száma (max 12):@possibleHomeofficeDaysCat1</h4>
+			<h4 class="mt-3 @hoVisible" align="left">Home office napok maximális száma (max 16):@possibleHomeofficeDaysCat2</h4>
         </RadzenCard>
     </div>
   </div>
@@ -44,7 +45,8 @@
   string? selectedMonth;
   int workingDaysInMonth = 0;
   int maxHolidays = 0;
-  int possibleHomeofficeDays = 0;
+  int possibleHomeofficeDaysCat1 = 0;
+  int possibleHomeofficeDaysCat2 = 0;
   int holidayDays = 0;
   string hoVisible = "invisible";
 
@@ -64,7 +66,7 @@
   }
 
 
-  int CalculateHomeOfficeDays(int workDays, int holidays)
+  int CalculateHomeOfficeDaysCat1(int workDays, int holidays)
   {
     int num = (int) Math.Round((double) (workDays - holidays) / (double) workDays * 12.0);
     if (num < 1)
@@ -75,6 +77,16 @@
     return num;
   }
 
+  int CalculateHomeOfficeDaysCat2(int workDays, int holidays)
+  {
+    int num = (int) Math.Round((double) (workDays - holidays) / (double) workDays * 16.0);
+    if (num < 1)
+      num = 0;
+    else if (num > 16)
+      num = 16;
+    
+    return num;
+  }
 
   void OnMonthChange(string value, string name)
   {
@@ -82,7 +94,8 @@
       maxHolidays = workingDaysInMonth;
       hoVisible = GetVisible(false);
       holidayDays = 0;
-      possibleHomeofficeDays = 0;
+      possibleHomeofficeDaysCat1 = 0;
+	  possibleHomeofficeDaysCat2 = 0;
       console?.Log($"{name} value changed to {value}");
   }
 
@@ -97,8 +110,8 @@
   void OnClick(string value)
   {
     hoVisible = GetVisible(true);
-    possibleHomeofficeDays = CalculateHomeOfficeDays(workingDaysInMonth, holidayDays);
-
+    possibleHomeofficeDaysCat1 = CalculateHomeOfficeDaysCat1(workingDaysInMonth, holidayDays);
+    possibleHomeofficeDaysCat2 = CalculateHomeOfficeDaysCat2(workingDaysInMonth, holidayDays);
   }
   int GetWorkingDaysInMonth(string value)
   {
